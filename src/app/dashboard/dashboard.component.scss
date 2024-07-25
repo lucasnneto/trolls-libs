@@ -1,0 +1,50 @@
+.container {
+  width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 32px;
+  padding-bottom: 32px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  .functions {
+    display: flex;
+    justify-content: space-between;
+  }
+  .box-loading {
+    height: 100%;
+    display: grid;
+    place-items: center;
+  }
+  .list {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    .cards {
+      min-width: 300px;
+      min-height: 150px;
+      &.serie-out {
+        border: 1px solid red;
+      }
+      cursor: pointer;
+      .content {
+        .chips-space {
+          display: flex;
+          justify-content: flex-end;
+          .chips {
+            font-size: 12px;
+            font-weight: bold;
+          }
+        }
+        h3 {
+          margin: 0;
+        }
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+    }
+  }
+}

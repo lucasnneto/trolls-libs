@@ -1,0 +1,34 @@
+<div class="container">
+  <mat-card class="card">
+    <h3>Entrar</h3>
+    <mat-form-field appearance="outline">
+      <mat-label>Username</mat-label>
+      <input matInput placeholder="Ex. trolzito20" [(ngModel)]="username" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Senha</mat-label>
+      <input
+        matInput
+        [type]="showPass ? 'text' : 'password'"
+        placeholder="Ex. trol123"
+        [(ngModel)]="password"
+      />
+      <mat-icon class="icon-input" matSuffix (click)="showPass = !showPass">{{
+        showPass ? "visibility_off" : "visibility"
+      }}</mat-icon>
+    </mat-form-field>
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="login()"
+      [disabled]="loading"
+    >
+      <mat-spinner
+        [diameter]="25"
+        color="primary"
+        *ngIf="loading; else text"
+      ></mat-spinner>
+      <ng-template #text> Entrar </ng-template>
+    </button>
+  </mat-card>
+</div>

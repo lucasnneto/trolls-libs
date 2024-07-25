@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="functions">
+    <button mat-flat-button color="primary" (click)="addNewBook()">
+      Adicionar Novo Livro
+    </button>
+    <button mat-flat-button color="warn" (click)="logout()">Sair</button>
+  </div>
+  <div class="box-loading" *ngIf="loading; else base">
+    <mat-spinner></mat-spinner>
+  </div>
+  <ng-template #base>
+    <h2>{{ user.username }}</h2>
+    <h4>Meus livros</h4>
+
+    <div class="list">
+      <mat-card
+        *ngFor="let serie of series"
+        class="cards"
+        [class.serie-out]="serie.books[0].borrowedTo"
+      >
+        <mat-card-content class="content">
+          <div class="chips-space">
+            <mat-chip class="chips"> SÉRIE </mat-chip>
+          </div>
+          <h3>
+            {{ serie.series }}
+          </h3>
+          <div>
+            <div>Autor: {{ serie.books[0].author }}</div>
+            <div>Dono: {{ serie.books[0].owner.username }}</div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <mat-card *ngFor="let book of books" class="cards">
+        <mat-card-content class="content">
+          <div class="chips-space">
+            <mat-chip class="chips"> LIVRO </mat-chip>
+          </div>
+          <h3>
+            {{ book.title }}
+          </h3>
+          <div>
+            <div>Autor: {{ book.author }}</div>
+            <div>Dono: {{ book.owner.username }}</div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </ng-template>
+</div>

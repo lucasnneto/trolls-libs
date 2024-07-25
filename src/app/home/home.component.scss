@@ -1,0 +1,54 @@
+.container {
+  width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 32px;
+  padding-bottom: 32px;
+  .top {
+    display: flex;
+    justify-content: space-between;
+  }
+  .busca {
+    width: 100%;
+  }
+  .box-loading {
+    display: flex;
+    justify-content: center;
+  }
+  .list {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    .cards {
+      min-width: 300px;
+      min-height: 150px;
+      &.serie-out {
+        border: 1px solid red;
+      }
+      cursor: pointer;
+      .content {
+        .chips-space {
+          display: flex;
+          justify-content: flex-end;
+          .chips {
+            font-size: 12px;
+            font-weight: bold;
+          }
+        }
+        h3 {
+          margin: 0;
+        }
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  .container {
+    max-width: 100%;
+  }
+}

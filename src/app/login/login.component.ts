@@ -23,11 +23,10 @@ export class LoginComponent {
         next: ({ token }) => {
           sessionStorage.setItem('token', token);
           this.router.navigate(['/dashboard']);
+          this.loading = false;
         },
         error: () => {
           alert('Erro ao realizar login');
-        },
-        complete: () => {
           this.loading = false;
         },
       });

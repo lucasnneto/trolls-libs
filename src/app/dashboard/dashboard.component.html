@@ -1,50 +1,69 @@
 <div class="container">
   <div class="functions">
-    <button mat-flat-button color="primary" (click)="addNewBook()">
+    <button nbButton status="primary" routerLink="/forms">
       Adicionar Novo Livro
     </button>
-    <button mat-flat-button color="warn" (click)="logout()">Sair</button>
   </div>
   <div class="box-loading" *ngIf="loading; else base">
-    <mat-spinner></mat-spinner>
+    <nb-card
+      class="intern"
+      [nbSpinner]="true"
+      nbSpinnerStatus="primary"
+      nbSpinnerSize="giant"
+    >
+    </nb-card>
   </div>
   <ng-template #base>
     <h2>{{ user.username }}</h2>
     <h4>Meus livros</h4>
 
     <div class="list">
-      <mat-card
+      <nb-card
         *ngFor="let serie of series"
         class="cards"
         [class.serie-out]="serie.books[0].borrowedTo"
       >
-        <mat-card-content class="content">
+        <nb-card-body class="content">
           <div class="chips-space">
-            <mat-chip class="chips"> SÉRIE </mat-chip>
+            <nb-badge class="chips" text="SÉRIE"></nb-badge>
           </div>
           <h3>
             {{ serie.series }}
           </h3>
           <div>
-            <div>Autor: {{ serie.books[0].author }}</div>
             <div>Dono: {{ serie.books[0].owner.username }}</div>
           </div>
-        </mat-card-content>
-      </mat-card>
-      <mat-card *ngFor="let book of books" class="cards">
-        <mat-card-content class="content">
+        </nb-card-body>
+        <nb-card-footer class="footer">
+          <button nbButton>
+            <nb-icon icon="edit-2-outline"></nb-icon>
+          </button>
+          <button nbButton (click)="deleteCard(serie)">
+            <nb-icon icon="trash-outline"></nb-icon>
+          </button>
+        </nb-card-footer>
+      </nb-card>
+      <nb-card *ngFor="let book of books" class="cards">
+        <nb-card-body class="content">
           <div class="chips-space">
-            <mat-chip class="chips"> LIVRO </mat-chip>
+            <nb-badge class="chips" text="LIVRO"></nb-badge>
           </div>
           <h3>
             {{ book.title }}
           </h3>
           <div>
-            <div>Autor: {{ book.author }}</div>
             <div>Dono: {{ book.owner.username }}</div>
           </div>
-        </mat-card-content>
-      </mat-card>
+        </nb-card-body>
+        <nb-card-footer class="footer">
+          <button nbButton>
+            <nb-icon icon="edit-2-outline"></nb-icon>
+          </button>
+          <button nbButton (click)="deleteCard(book)">
+            <nb-icon icon="trash-outline"></nb-icon>
+          </button>
+        </nb-card-footer>
+      </nb-card>
     </div>
   </ng-template>
 </div>

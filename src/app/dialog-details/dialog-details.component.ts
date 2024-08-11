@@ -1,5 +1,5 @@
-import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Component } from '@angular/core';
+import { NbDialogRef } from '@nebular/theme';
 import { Series } from '../series';
 
 @Component({
@@ -8,8 +8,6 @@ import { Series } from '../series';
   styleUrls: ['./dialog-details.component.scss'],
 })
 export class DialogDetailsComponent {
-  constructor(
-    public dialogRef: MatDialogRef<DialogDetailsComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Series
-  ) {}
+  serie!: Series;
+  constructor(public dialogRef: NbDialogRef<DialogDetailsComponent>) {}
 }

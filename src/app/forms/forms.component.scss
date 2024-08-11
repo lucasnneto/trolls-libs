@@ -1,0 +1,16 @@
+.container {
+  width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 32px;
+  padding-bottom: 32px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+.box-loading {
+  height: 100%;
+  display: grid;
+  place-items: center;
+}

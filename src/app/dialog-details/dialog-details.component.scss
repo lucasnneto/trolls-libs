@@ -1,12 +1,20 @@
-.base {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  .card {
-    padding: 15px;
-    width: 300px;
-    height: 60px;
-    display: grid;
-    place-items: center;
+.card {
+  width: 550px;
+  height: 400px;
+  padding-bottom: 15px;
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .subcard {
+    padding: 10px;
+    border-color: white;
+    .title {
+      margin: 0;
+    }
+    .author {
+      font-size: xx-small;
+    }
   }
 }

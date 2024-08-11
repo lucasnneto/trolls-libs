@@ -1,16 +1,31 @@
-<h1 mat-dialog-title>{{ data.series }}</h1>
-<div mat-dialog-content class="base">
-  <div>
-    <p>Autor: {{ data.books[0].author }}</p>
-    <p>Dono: {{ data.books[0].owner.username }}</p>
-    <p *ngIf="data.books[0].borrowedTo">
-      Emprestado para: {{ data.books[0].borrowedTo }}
-    </p>
-  </div>
-  <mat-card *ngFor="let book of data.books" class="card">
-    {{ book.title }}
-  </mat-card>
-</div>
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close cdkFocusInitial>Fechar</button>
-</div>
+<nb-card class="card">
+  <nb-card-header class="header">
+    <h3>{{ serie.series }}</h3>
+    <button
+      nbButton
+      ghost
+      status="info"
+      (click)="dialogRef.close()"
+      class="button"
+    >
+      <nb-icon icon="close"></nb-icon>
+    </button>
+  </nb-card-header>
+
+  <nb-card-body>
+    <div>
+      <p>Dono: {{ serie.books[0].owner.username }}</p>
+      <p *ngIf="serie.books[0].borrowedTo">
+        Emprestado para: {{ serie.books[0].borrowedTo }}
+      </p>
+      <nb-card *ngFor="let book of serie.books" class="subcard">
+        <h5 class="title">
+          {{ book.title }}
+        </h5>
+        <span class="author">
+          {{ book.author }}
+        </span>
+      </nb-card>
+    </div>
+  </nb-card-body>
+</nb-card>

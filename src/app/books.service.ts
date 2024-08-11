@@ -26,7 +26,12 @@ export class BooksService {
 
     return this.http.get<Series[]>(url.href);
   }
-  addNew(data: { title: string; author: string }, token: string) {
+  addNew(
+    data: {
+      books: { title: string; author: string; series: string | undefined }[];
+    },
+    token: string
+  ) {
     return this.http.post<Series>(this.url, data, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -34,8 +39,13 @@ export class BooksService {
       }),
     });
   }
-  deleteBook(id: string, token: string) {
-    return this.http.delete<Series>(this.url + '/' + id, {
+  deleteBook(data: { ids: string[] }, token: string) {
+    const url = new URL(this.url);
+
+    // url.searchParams.append('ids', JSON.stringify(data.ids));
+
+    //TODO MEXER NO ENDPOINT DE DELETE
+    return this.http.post<Series>(url.href + '/delete', data, {
       headers: new HttpHeaders({
         authorization: 'Bearer ' + token,
       }),

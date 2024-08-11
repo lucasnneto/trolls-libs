@@ -10,15 +10,25 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { DialogDetailsComponent } from './dialog-details/dialog-details.component';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatCardModule } from '@angular/material/card';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+// import { FormsComponent } from './forms/forms.component';
+import {
+  NbThemeModule,
+  NbLayoutModule,
+  NbButtonModule,
+  NbSpinnerModule,
+  NbInputModule,
+  NbCardModule,
+  NbBadgeModule,
+  NbDialogModule,
+  NbIconModule,
+  NbFormFieldModule,
+  NbContextMenuModule,
+  NbMenuModule,
+} from '@nebular/theme';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { DialogDeleteComponent } from './dialog-delete/dialog-delete.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +37,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     LoginComponent,
     DashboardComponent,
     DialogDetailsComponent,
+    DialogDeleteComponent,
+    // FormsComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,14 +46,19 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCardModule,
-    MatChipsModule,
-    MatDialogModule,
-    MatIconModule,
-    MatProgressSpinnerModule,
+    NbThemeModule.forRoot({ name: 'cosmic' }),
+    NbLayoutModule,
+    NbEvaIconsModule,
+    NbButtonModule,
+    NbSpinnerModule,
+    NbInputModule,
+    NbCardModule,
+    NbBadgeModule,
+    NbDialogModule.forRoot({ autoFocus: false }),
+    NbIconModule,
+    NbFormFieldModule,
+    NbContextMenuModule,
+    NbMenuModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

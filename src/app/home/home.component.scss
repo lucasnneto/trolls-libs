@@ -1,27 +1,48 @@
 .container {
   width: 1000px;
+
+  @media (max-width: 1000px) {
+    max-width: 100%;
+  }
   margin-left: auto;
   margin-right: auto;
   padding-top: 32px;
   padding-bottom: 32px;
-  .top {
-    display: flex;
-    justify-content: space-between;
-  }
+
   .busca {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    padding: 15px;
+    input {
+      max-width: 100%;
+      margin-top: 10px;
+    }
   }
   .box-loading {
     display: flex;
     justify-content: center;
+    .intern {
+      padding: 30px;
+    }
   }
   .list {
     display: flex;
-    gap: 15px;
+    gap: 50px;
     flex-wrap: wrap;
+    // justify-content: space-between;
+
     .cards {
+      padding: 10px;
       min-width: 300px;
+      max-width: 300px;
       min-height: 150px;
+      margin-bottom: 0;
+      @media (max-width: 700px) {
+        min-width: 100%;
+        max-width: 100%;
+      }
       &.serie-out {
         border: 1px solid red;
       }

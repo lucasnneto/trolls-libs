@@ -1,59 +1,58 @@
 <div class="container">
-  <div class="top">
-    <h2>Trolls Libs</h2>
-    <button
-      mat-flat-button
-      color="primary"
-      [routerLink]="isLogged ? '/dashboard' : '/login'"
+  <nb-card class="busca">
+    <label class="label" for="search"
+      >Buscar pelo Titulo, Autor ou Dono do livro</label
     >
-      {{ isLogged ? "DASHBOARD" : "LOGIN" }}
-    </button>
-  </div>
-  <mat-form-field class="busca" appearance="outline">
-    <mat-label>Buscar pelo Titulo, Autor ou Dono do livro</mat-label>
     <input
-      matInput
+      id="search"
+      type="text"
+      nbInput
       placeholder="Ex. Trol de Assis"
       #searchBox
       (input)="search(searchBox.value)"
     />
-  </mat-form-field>
+  </nb-card>
+
   <div class="box-loading" *ngIf="loading">
-    <mat-spinner></mat-spinner>
+    <nb-card
+      class="intern"
+      [nbSpinner]="true"
+      nbSpinnerStatus="primary"
+      nbSpinnerSize="giant"
+    >
+    </nb-card>
   </div>
   <div class="list">
-    <mat-card
+    <nb-card
       *ngFor="let serie of series"
       class="cards"
       (click)="selectSerieCard(serie)"
       [class.serie-out]="serie.books[0].borrowedTo"
     >
-      <mat-card-content class="content">
+      <nb-card-body class="content">
         <div class="chips-space">
-          <mat-chip class="chips"> SÉRIE </mat-chip>
+          <nb-badge class="chips" text="SÉRIE"></nb-badge>
         </div>
         <h3>
           {{ serie.series }}
         </h3>
         <div>
-          <div>Autor: {{ serie.books[0].author }}</div>
           <div>Dono: {{ serie.books[0].owner.username }}</div>
         </div>
-      </mat-card-content>
-    </mat-card>
-    <mat-card *ngFor="let book of books" class="cards">
-      <mat-card-content class="content">
+      </nb-card-body>
+    </nb-card>
+    <nb-card *ngFor="let book of books" class="cards">
+      <nb-card-body class="content">
         <div class="chips-space">
-          <mat-chip class="chips"> LIVRO </mat-chip>
+          <nb-badge class="chips" text="LIVRO"></nb-badge>
         </div>
         <h3>
           {{ book.title }}
         </h3>
         <div>
-          <div>Autor: {{ book.author }}</div>
           <div>Dono: {{ book.owner.username }}</div>
         </div>
-      </mat-card-content>
-    </mat-card>
+      </nb-card-body>
+    </nb-card>
   </div>
 </div>

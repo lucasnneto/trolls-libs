@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BooksService } from '../books.service';
 import { Book, Series } from '../series';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
+import { NbDialogService } from '@nebular/theme';
 import { DialogDetailsComponent } from '../dialog-details/dialog-details.component';
 
 @Component({
@@ -11,7 +11,10 @@ import { DialogDetailsComponent } from '../dialog-details/dialog-details.compone
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private bookService: BooksService, public dialog: MatDialog) {}
+  constructor(
+    private bookService: BooksService,
+    public dialogService: NbDialogService
+  ) {}
 
   isLogged = false;
   loading = true;
@@ -44,8 +47,8 @@ export class HomeComponent implements OnInit {
     });
   }
   selectSerieCard(serie: Series) {
-    const dialogRef = this.dialog.open(DialogDetailsComponent, {
-      data: serie,
+    const dialogRef = this.dialogService.open(DialogDetailsComponent, {
+      context: { serie },
     });
     // dialogRef.afterClosed().subscribe(result => {
     //   console.log('The dialog was closed',result);

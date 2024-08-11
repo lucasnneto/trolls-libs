@@ -1,0 +1,40 @@
+<nb-card>
+  <nb-card-body>
+    <h5>
+      Deseja apagar mesmo
+      {{ isBook ? "o " : "a " }}
+      <span class="text-danger">{{ isBook ? "livro" : "série" }}</span>
+      "{{ isBook ? book.title : serie.series }}"?
+    </h5>
+    <div *ngIf="isBook; else serieTemp">
+      <p>Author: {{ book.author }}</p>
+    </div>
+    <ng-template #serieTemp>
+      <div>
+        <nb-card *ngFor="let bk of serie.books" class="subcard">
+          <b class="title">
+            {{ bk.title }}
+          </b>
+          <span class="author">
+            {{ bk.author }}
+          </span>
+        </nb-card>
+      </div>
+    </ng-template>
+    <div class="footer">
+      <button nbButton (click)="dialogRef.close()" [disabled]="loading">
+        Cancelar
+      </button>
+      <button
+        nbButton
+        status="danger"
+        [disabled]="loading"
+        [nbSpinner]="loading"
+        nbSpinnerStatus="primary"
+        (click)="apagarData()"
+      >
+        Apagar
+      </button>
+    </div>
+  </nb-card-body>
+</nb-card>

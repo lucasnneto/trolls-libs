@@ -4,6 +4,8 @@ import { User } from '../user';
 import { UsersService } from '../users.service';
 import { Book, Series } from '../series';
 import { BooksService } from '../books.service';
+import { NbDialogService } from '@nebular/theme';
+import { DialogDeleteComponent } from '../dialog-delete/dialog-delete.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,7 +16,8 @@ export class DashboardComponent implements OnInit {
   constructor(
     private router: Router,
     private userService: UsersService,
-    private bookService: BooksService
+    private bookService: BooksService,
+    private dialogService: NbDialogService
   ) {}
   user!: User;
   series!: Series[];
@@ -45,25 +48,19 @@ export class DashboardComponent implements OnInit {
     sessionStorage.removeItem('token');
     this.router.navigate(['/']);
   }
-  addNewBook() {
-    //ir para pagina de adicionar novo Livro
+  deleteCard(data: Series | Book) {
+    const dialogRef = this.dialogService.open(DialogDeleteComponent, {
+      context: { data },
+    });
+    dialogRef.onClose.subscribe((data) => {
+      if (!data || !data.delete) return;
+      if (data.type === 'livro') {
+        const ind = this.books.findIndex((el) => el._id === data.id);
+        this.books.splice(ind, 1);
+      } else if (data.type === 'serie') {
+        const ind = this.series.findIndex((el) => el.series === data.name);
+        this.series.splice(ind, 1);
+      }
+    });
   }
-  // nomeLivro = '';
-  // autorLivro = '';
-  // addNew() {
-  //   if (!this.nomeLivro || !this.autorLivro) return;
-  //   this.bookService
-  //     .addNew({ title: this.nomeLivro, author: this.autorLivro }, this.token)
-  //     .subscribe((book) => {
-  //       this.books.unshift(book);
-  //       this.nomeLivro = '';
-  //       this.autorLivro = '';
-  //     });
-  // }
-  // deleteBook(id: string) {
-  //   this.bookService.deleteBook(id, this.token).subscribe(() => {
-  //     const ind = this.books.findIndex((b) => b.series === id);
-  //     this.books.splice(ind, 1);
-  //   });
-  // }
 }

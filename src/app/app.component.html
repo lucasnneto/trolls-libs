@@ -1,1 +1,26 @@
-<router-outlet></router-outlet>
+<nb-layout>
+  <nb-layout-header fixed>
+    <div class="top">
+      <a routerLink="" style="text-decoration: none">
+        <h2>Trolls Libs</h2>
+      </a>
+      <button
+        *ngIf="!isLogged; else loggedMenu"
+        nbButton
+        color="primary"
+        routerLink="/login"
+      >
+        ENTRAR
+      </button>
+      <ng-template #loggedMenu>
+        <button nbButton [nbContextMenu]="items">
+          <nb-icon icon="person-outline"></nb-icon>
+        </button>
+      </ng-template>
+    </div>
+  </nb-layout-header>
+
+  <nb-layout-column>
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+</nb-layout>

@@ -1,0 +1,15 @@
+.subcard {
+  padding: 10px;
+  border-color: white;
+  .title {
+    margin: 0;
+  }
+  .author {
+    font-size: xx-small;
+  }
+}
+.footer {
+  display: flex;
+  gap: 15px;
+  justify-content: end;
+}

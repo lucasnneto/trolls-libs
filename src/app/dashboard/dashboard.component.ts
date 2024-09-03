@@ -31,10 +31,12 @@ export class DashboardComponent implements OnInit {
       return;
     }
     this.token = token;
+    this.userService.testeAPIGoogle().subscribe();
     this.getBooks();
   }
   getBooks() {
     this.loading = true;
+
     this.userService.getMe(this.token).subscribe(({ user }) => {
       this.user = user;
       this.bookService.getOwner(this.user._id).subscribe((series) => {

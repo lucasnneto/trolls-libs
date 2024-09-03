@@ -26,4 +26,14 @@ export class UsersService {
       },
     });
   }
+  testeAPIGoogle() {
+    return this.http.get(
+      'https://www.googleapis.com/books/v1/volumes?q=o+ceifador',
+      {
+        // headers: {
+        //   authorization: 'Bearer ' + token,
+        // },
+      }
+    );
+  }
 }

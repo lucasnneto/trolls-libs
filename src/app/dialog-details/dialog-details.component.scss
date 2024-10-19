@@ -18,3 +18,12 @@
     }
   }
 }
+@media (max-width: 550px) {
+  .card {
+    width: 100vw;
+    height: 100vh;
+    nb-icon {
+      font-size: 2rem;
+    }
+  }
+}

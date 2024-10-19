@@ -1,6 +1,16 @@
+.card {
+  width: 500px;
+}
 .subcard {
   padding: 10px;
   border-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  .base {
+    display: flex;
+    flex-direction: column;
+  }
   .title {
     margin: 0;
   }
@@ -13,6 +23,7 @@
   gap: 15px;
   justify-content: flex-end;
 }
+
 @media (max-width: 550px) {
   .card {
     width: 100vw;

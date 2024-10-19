@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Series } from './series';
+import { Book, Series } from './series';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BooksService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   url = environment.apiUrl + 'books';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -25,6 +25,48 @@ export class BooksService {
     url.searchParams.append('owner', owner);
 
     return this.http.get<Series[]>(url.href);
+  }
+  editBook(
+    data: {
+      books: Partial<Book>;
+      ids: string
+    },
+    token: string
+  ) {
+    const payload = { books: [data.books], ids: [data.ids] }
+    return this.http.put(this.url, payload, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        authorization: 'Bearer ' + token,
+      }),
+    });
+  }
+  borrowBook(
+    data: {
+      idsBook: string[];
+      nameBorrow: string
+    },
+    token: string
+  ) {
+    return this.http.post(this.url + '/borrow', data, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        authorization: 'Bearer ' + token,
+      }),
+    });
+  }
+  returnBook(
+    data: {
+      idsBook: string[];
+    },
+    token: string
+  ) {
+    return this.http.post(this.url + '/return', data, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        authorization: 'Bearer ' + token,
+      }),
+    });
   }
   addNew(
     data: {

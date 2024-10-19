@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-// import { FormsComponent } from './forms/forms.component';
+import { FormsComponent } from './forms/forms.component';
 
 const routes: Routes = [
   {
@@ -18,10 +18,14 @@ const routes: Routes = [
     component: DashboardComponent,
     path: 'dashboard',
   },
-  // {
-  //   component: FormsComponent,
-  //   path: 'forms',
-  // },
+  {
+    component: FormsComponent,
+    path: 'forms',
+  },
+  {
+    component: FormsComponent,
+    path: 'forms/:name',
+  },
   {
     redirectTo: '',
     path: '*',
@@ -32,4 +36,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

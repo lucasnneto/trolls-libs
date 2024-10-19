@@ -1,0 +1,45 @@
+<nb-card class="card">
+    <nb-card-header class="header">
+        <h3>Buscar no sistema um livro</h3>
+        <button nbButton ghost status="info" (click)="dialogRef.close()" class="button">
+            <nb-icon icon="close"></nb-icon>
+        </button>
+    </nb-card-header>
+
+    <nb-card-body>
+        <div>
+            <div class="busca-base">
+                <div style="width: 100%;">
+                    <label class="label" for="buscar"> Nome do Livro ou Autor </label>
+                    <nb-form-field style="margin-bottom: 10px">
+                        <input fullWidth id="buscar" type="text" nbInput placeholder="Ex. A historia do trol"
+                            (keyup.enter)="buscarNaApi()" [(ngModel)]="buscar" />
+                    </nb-form-field>
+                </div>
+                <div style="margin-top: 18px;">
+                    <button nbButton class="button-busca" (click)="buscarNaApi()" [nbSpinner]="loading"
+                        [disabled]="loading">
+                        <nb-icon icon="search-outline"></nb-icon>
+                    </button>
+                </div>
+            </div>
+            <nb-card *ngFor="let book of listalivros" class="subcard" (click)="dialogRef.close(book)">
+                <img [src]="book.volumeInfo.imageLinks? book.volumeInfo.imageLinks.smallThumbnail:null" alt=""
+                    height="120px" width="84px">
+                <div class="infos">
+                    <h5 class="title">
+                        {{ book.volumeInfo.title }}
+                    </h5>
+                    <p class="author">
+                        {{autores(book.volumeInfo.authors)}}
+                    </p>
+                    <p class="resume">
+                        {{book.volumeInfo.description ? book.volumeInfo.description.substring(0,200):''}}
+                        {{book.volumeInfo.description &&
+                        book.volumeInfo.description.length>200 ? '...':'-'}}
+                    </p>
+                </div>
+            </nb-card>
+        </div>
+    </nb-card-body>
+</nb-card>

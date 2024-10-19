@@ -1,0 +1,38 @@
+.card {
+  width: 550px;
+  height: 400px;
+  padding-bottom: 15px;
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .busca-base {
+    display: flex;
+    width: 100%;
+    .button-busca {
+      height: 40px;
+    }
+  }
+  .subcard {
+    padding: 10px;
+    border-color: white;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    .title {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .author {
+      margin: 0;
+      font-size: small;
+    }
+    .resume {
+      margin: 0;
+      font-size: x-small;
+    }
+  }
+}

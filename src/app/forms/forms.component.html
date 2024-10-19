@@ -1,99 +1,92 @@
 <div class="container">
-  <mat-grid-list cols="12">
-    <mat-grid-tile colspan="1" rowspan="1">
-      <button mat-icon-button color="primary" routerLink="/dashboard">
-        <mat-icon>arrow_back</mat-icon>
-      </button>
-    </mat-grid-tile>
-    <mat-grid-tile colspan="11">
-      <h2>Criar Nova Coleção</h2>
-    </mat-grid-tile>
-    <mat-grid-tile colspan="12">
-      <mat-form-field class="busca" appearance="outline" style="width: 100%">
-        <mat-label>Nome da coleção</mat-label>
-        <input
-          matInput
-          placeholder="Ex. The Big Trol"
-          [(ngModel)]="nomeColecao"
-        />
-        <mat-hint
-          >Caso for um livro único, só não preencher este campo</mat-hint
-        >
-      </mat-form-field>
-    </mat-grid-tile>
-    <mat-grid-tile colspan="12">
-      <h4>Incluir Livros na Coleção</h4>
-    </mat-grid-tile>
-    <mat-grid-tile colspan="12">
-      <button mat-flat-button color="primary" (click)="incluirLivro()">
-        Adicionar mais livros
-      </button>
-    </mat-grid-tile>
-    <mat-grid-tile
+  <div style="display: flex">
+    <button nbButton ghost status="info" routerLink="/dashboard" class="button">
+      <nb-icon icon="arrow-ios-back-outline"></nb-icon>
+    </button>
+    <h3>
+      {{
+        created
+          ? "Adicionar livro(s) para coleção " + nomeColecao
+          : "Criar Livro ou Coleção"
+      }}
+    </h3>
+  </div>
+  <label class="label" for="nomeColecao"> Nome da Coleção </label>
+  <nb-form-field style="margin-bottom: 10px">
+    <input
+      fullWidth
+      id="nomeColecao"
+      type="text"
+      nbInput
+      placeholder="Ex. trolzito20"
+      [(ngModel)]="nomeColecao"
+    />
+  </nb-form-field>
+
+  <nb-accordion multi>
+    <nb-accordion-item
       *ngFor="let lib of libs; index as i"
-      colspan="12"
-      rowspan="2"
-      style="margin-bottom: 20px"
+      [expanded]="i == libs.length - 1"
     >
-      <mat-card style="width: 100%; margin: 15px; padding: 15px">
-        <mat-grid-list cols="12">
-          <mat-grid-tile colspan="12">
-            <h5 style="width: 100%">Novo Livro</h5>
-          </mat-grid-tile>
-          <mat-grid-tile colspan="5">
-            <mat-form-field
-              class="busca"
-              appearance="outline"
-              style="width: 100%; padding-top: 10px"
-            >
-              <mat-label>Nome do Livro</mat-label>
+      <nb-accordion-item-header>
+        {{ lib.title || "Novo Livro " + (i + 1) }}
+      </nb-accordion-item-header>
+      <nb-accordion-item-body>
+        <div style="display: flex; gap: 15px">
+          <!-- <img [src]="lib.thumbnail||imagemVoid" height="130" width="88" alt=""> -->
+          <div style="width: 100%">
+            <label class="label" [for]="'nomeLivo' + i"> Nome do Livro </label>
+            <nb-form-field style="margin-bottom: 10px">
               <input
-                matInput
-                placeholder="Ex. Trolzinho dourado"
+                fullWidth
+                [id]="'nomeLivo' + i"
+                type="text"
+                nbInput
+                placeholder="Ex. trolzito20"
                 [(ngModel)]="lib.title"
               />
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile colspan="5">
-            <mat-form-field
-              class="busca"
-              appearance="outline"
-              style="width: 100%; padding-top: 10px"
-            >
-              <mat-label>Autor da coleção</mat-label>
+            </nb-form-field>
+            <label class="label" [for]="'nomeAutor' + i"> Nome do Autor </label>
+            <nb-form-field style="margin-bottom: 10px">
               <input
-                matInput
-                placeholder="Ex. Trol de Assis"
+                fullWidth
+                [id]="'nomeAutor' + i"
+                type="text"
+                nbInput
+                placeholder="Ex. trolzito20"
                 [(ngModel)]="lib.author"
               />
-            </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile colspan="2">
-            <button
-              mat-flat-button
-              color="warn"
-              *ngIf="libs.length > 1"
-              (click)="removerLivro(i)"
-            >
-              Remover Livro
-            </button>
-          </mat-grid-tile>
-        </mat-grid-list>
-      </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile colspan="12">
-      <button
-        mat-flat-button
-        color="primary"
-        (click)="finalizarCriacao()"
-        style="width: 115px"
-        [disabled]="loading"
-      >
-        <div class="box-loading" *ngIf="loading; else base">
-          <mat-spinner [diameter]="25" color="primary"></mat-spinner>
+            </nb-form-field>
+          </div>
         </div>
-        <ng-template #base> Criar Coleção </ng-template>
-      </button>
-    </mat-grid-tile>
-  </mat-grid-list>
+        <div style="margin-top: 15px">
+          <!-- <button nbButton color="primary" style="margin-right: 15px;" (click)="buscarDetalhes(i)">
+            <nb-icon icon="search-outline"></nb-icon>
+          </button> -->
+          <button
+            *ngIf="libs.length > 1"
+            nbButton
+            color="error"
+            (click)="removerLivro(i)"
+          >
+            <nb-icon icon="trash-outline"></nb-icon>
+          </button>
+        </div>
+      </nb-accordion-item-body>
+    </nb-accordion-item>
+  </nb-accordion>
+  <nb-card style="margin-top: 15px; cursor: pointer" (click)="incluirLivro()">
+    <nb-card-body> Adicionar Livros </nb-card-body>
+  </nb-card>
+  <div style="display: flex; justify-content: end">
+    <button
+      nbButton
+      color="error"
+      (click)="finalizarCriacao()"
+      [disabled]="loading"
+      [nbSpinner]="loading"
+    >
+      Salvar Tudo
+    </button>
+  </div>
 </div>

@@ -4,8 +4,10 @@ import { User } from '../user';
 import { UsersService } from '../users.service';
 import { Book, Series } from '../series';
 import { BooksService } from '../books.service';
-import { NbDialogService } from '@nebular/theme';
+import { NbDialogService, NbTrigger } from '@nebular/theme';
 import { DialogDeleteComponent } from '../dialog-delete/dialog-delete.component';
+import { DialogEditComponent } from '../dialog-edit/dialog-edit.component';
+import { DialogBorrowComponent } from '../dialog-borrow/dialog-borrow.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,7 +20,7 @@ export class DashboardComponent implements OnInit {
     private userService: UsersService,
     private bookService: BooksService,
     private dialogService: NbDialogService
-  ) {}
+  ) { }
   user!: User;
   series!: Series[];
   books!: Book[];
@@ -31,7 +33,6 @@ export class DashboardComponent implements OnInit {
       return;
     }
     this.token = token;
-    this.userService.testeAPIGoogle().subscribe();
     this.getBooks();
   }
   getBooks() {
@@ -64,5 +65,46 @@ export class DashboardComponent implements OnInit {
         this.series.splice(ind, 1);
       }
     });
+  }
+  emprestar(data: Series | Book) {
+    const dialogRef = this.dialogService.open(DialogBorrowComponent, {
+      context: { data },
+    });
+    dialogRef.onClose.subscribe((returnData) => {
+      if (!returnData) return;
+      if (returnData.borrow) {
+
+        if ((data as Book).title != undefined) {
+          const ind = this.books.findIndex((el) => el._id === (data as Book)._id);
+          this.books[ind].borrowedTo = returnData.how;
+        } else {
+          const ind = this.series.findIndex((el) => el.series === (data as Series).series);
+          this.series[ind].books.forEach(book => book.borrowedTo = returnData.how);
+        }
+      } else {
+        if ((data as Book).title != undefined) {
+          const ind = this.books.findIndex((el) => el._id === (data as Book)._id);
+          this.books[ind].borrowedTo = null;
+        } else {
+          const ind = this.series.findIndex((el) => el.series === (data as Series).series);
+          this.series[ind].books.forEach(book => book.borrowedTo = null);
+        }
+      }
+    });
+  }
+  editCard(data: Series | Book) {
+    const dialogRef = this.dialogService.open(DialogEditComponent, {
+      context: { data },
+    });
+    // dialogRef.onClose.subscribe((data) => {
+    //   if (!data || !data.delete) return;
+    //   if (data.type === 'livro') {
+    //     const ind = this.books.findIndex((el) => el._id === data.id);
+    //     this.books.splice(ind, 1);
+    //   } else if (data.type === 'serie') {
+    //     const ind = this.series.findIndex((el) => el.series === data.name);
+    //     this.series.splice(ind, 1);
+    //   }
+    // });
   }
 }

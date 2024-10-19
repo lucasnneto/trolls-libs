@@ -1,4 +1,4 @@
-<nb-card>
+<nb-card class="card">
   <nb-card-body>
     <h5>
       Deseja apagar mesmo
@@ -25,14 +25,8 @@
       <button nbButton (click)="dialogRef.close()" [disabled]="loading">
         Cancelar
       </button>
-      <button
-        nbButton
-        status="danger"
-        [disabled]="loading"
-        [nbSpinner]="loading"
-        nbSpinnerStatus="primary"
-        (click)="apagarData()"
-      >
+      <button nbButton status="danger" [disabled]="loading" [nbSpinner]="loading" nbSpinnerStatus="primary"
+        (click)="apagarData()">
         Apagar
       </button>
     </div>

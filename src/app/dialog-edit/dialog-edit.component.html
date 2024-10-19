@@ -1,0 +1,65 @@
+<nb-card class="card">
+    <nb-card-body>
+        <h5>
+            Editando
+            {{ isBook ? "o " : "a " }}
+            <span class="text-info">{{ isBook ? "livro" : "série" }}</span>
+            "{{ isBook ? book.title : serie.series }}" {{copySerie !== null? 'da série '+ copySerie.series:''}}
+        </h5>
+        <div *ngIf="isBook; else serieTemp">
+            <label class="label" for="nomeLivro"> Nome do Livro </label>
+            <nb-form-field style="margin-bottom: 10px">
+                <input fullWidth id="nomeLivro" type="text" nbInput placeholder="Ex. trolzito20"
+                    [(ngModel)]="book.title" />
+            </nb-form-field>
+            <label class="label" for="nomeAutor"> Nome do Autor </label>
+            <nb-form-field style="margin-bottom: 10px">
+                <input fullWidth id="nomeAutor" type="text" nbInput placeholder="Ex. trolzito20"
+                    [(ngModel)]="book.author" />
+            </nb-form-field>
+        </div>
+        <ng-template #serieTemp>
+            <!-- <label class="label" for="nomeColecao"> Nome da Coleção </label>
+            <nb-form-field style="margin-bottom: 10px">
+                <input fullWidth id="nomeColecao" disabled type="text" nbInput placeholder="Ex. trolzito20"
+                    [(ngModel)]="newSerieName" />
+            </nb-form-field> -->
+            <nb-alert status="warning">A edição de cada livro é feito individualmente!</nb-alert>
+            <div>
+                <nb-card *ngFor="let bk of serie.books; index as i" class="subcard">
+                    <div class="base">
+                        <b class="title">
+                            {{ bk.title }}
+                        </b>
+                        <span class="author">
+                            {{ bk.author }}
+                        </span>
+                    </div>
+                    <div>
+
+                        <button nbButton (click)="editBookFromSeries(i)" style="margin-right: 8px;">
+                            <nb-icon icon="edit-2-outline"></nb-icon>
+                        </button>
+                        <button nbButton (click)="deleteCard(bk)" status="danger"
+                            [nbTooltip]="serie.books.length===1?'Tente excluir a série':''"
+                            [disabled]="serie.books.length===1">
+                            <nb-icon icon="trash-outline"></nb-icon>
+                        </button>
+                    </div>
+                </nb-card>
+            </div>
+        </ng-template>
+        <div class="footer">
+            <button nbButton (click)="cancel()" [disabled]="loading">
+                {{copySerie!= null?'Voltar':'Fechar'}}
+            </button>
+            <button *ngIf="!isBook && copySerie==null" status="info" nbButton (click)="addNew()" [disabled]="loading">
+                Adicionar mais livros
+            </button>
+            <button nbButton status="info" *ngIf="copySerie!=null" [disabled]="loading" [nbSpinner]="loading"
+                nbSpinnerStatus="primary" (click)="save()">
+                Salvar
+            </button>
+        </div>
+    </nb-card-body>
+</nb-card>

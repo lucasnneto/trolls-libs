@@ -1,34 +1,17 @@
 <div class="container">
   <nb-card class="busca">
-    <label class="label" for="search"
-      >Buscar pelo Titulo, Autor ou Dono do livro</label
-    >
-    <input
-      id="search"
-      type="text"
-      nbInput
-      placeholder="Ex. Trol de Assis"
-      #searchBox
-      (input)="search(searchBox.value)"
-    />
+    <label class="label" for="search">Buscar pelo Titulo, Autor ou Dono do livro</label>
+    <input id="search" type="text" nbInput placeholder="Ex. Trol de Assis" #searchBox
+      (input)="search(searchBox.value)" />
   </nb-card>
 
   <div class="box-loading" *ngIf="loading">
-    <nb-card
-      class="intern"
-      [nbSpinner]="true"
-      nbSpinnerStatus="primary"
-      nbSpinnerSize="giant"
-    >
+    <nb-card class="intern" [nbSpinner]="true" nbSpinnerStatus="primary" nbSpinnerSize="giant">
     </nb-card>
   </div>
   <div class="list">
-    <nb-card
-      *ngFor="let serie of series"
-      class="cards"
-      (click)="selectSerieCard(serie)"
-      [class.serie-out]="serie.books[0].borrowedTo"
-    >
+    <nb-card *ngFor="let serie of series" class="cards" (click)="selectSerieCard(serie)"
+      [class.serie-out]="serie.books[0].borrowedTo">
       <nb-card-body class="content">
         <div class="chips-space">
           <nb-badge class="chips" text="SÉRIE"></nb-badge>
@@ -38,6 +21,7 @@
         </h3>
         <div>
           <div>Dono: {{ serie.books[0].owner.username }}</div>
+          <div *ngIf="serie.books[0].borrowedTo">Emprestado: {{ serie.books[0].borrowedTo }}</div>
         </div>
       </nb-card-body>
     </nb-card>
@@ -51,6 +35,7 @@
         </h3>
         <div>
           <div>Dono: {{ book.owner.username }}</div>
+          <div *ngIf="book.borrowedTo">Emprestado: {{ book.borrowedTo }}</div>
         </div>
       </nb-card-body>
     </nb-card>

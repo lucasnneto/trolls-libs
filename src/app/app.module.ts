@@ -12,7 +12,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { DialogDetailsComponent } from './dialog-details/dialog-details.component';
 
-// import { FormsComponent } from './forms/forms.component';
+import { FormsComponent } from './forms/forms.component';
+
 import {
   NbThemeModule,
   NbLayoutModule,
@@ -26,9 +27,15 @@ import {
   NbFormFieldModule,
   NbContextMenuModule,
   NbMenuModule,
+  NbAccordionModule,
+  NbAlertModule,
+  NbTooltipModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { DialogDeleteComponent } from './dialog-delete/dialog-delete.component';
+import { DialogBuscaComponent } from './dialog-busca/dialog-busca.component';
+import { DialogEditComponent } from './dialog-edit/dialog-edit.component';
+import { DialogBorrowComponent } from './dialog-borrow/dialog-borrow.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +45,10 @@ import { DialogDeleteComponent } from './dialog-delete/dialog-delete.component';
     DashboardComponent,
     DialogDetailsComponent,
     DialogDeleteComponent,
-    // FormsComponent,
+    FormsComponent,
+    DialogBuscaComponent,
+    DialogEditComponent,
+    DialogBorrowComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,8 +69,11 @@ import { DialogDeleteComponent } from './dialog-delete/dialog-delete.component';
     NbFormFieldModule,
     NbContextMenuModule,
     NbMenuModule.forRoot(),
+    NbAccordionModule,
+    NbAlertModule,
+    NbTooltipModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

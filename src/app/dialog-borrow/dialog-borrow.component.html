@@ -1,0 +1,48 @@
+<nb-card class="card">
+    <nb-card-body>
+        <h5>
+            Deseja emprestar mesmo
+            {{ isBook ? "o " : "a " }}
+            <span class="text-info">{{ isBook ? "livro" : "série" }}</span>
+            "{{ isBook ? book.title : serie.series }}"?
+        </h5>
+        <div *ngIf="!isBorrow; else returnItem">
+
+            <label class="label" for="nomeLivro"> Empresar para quem </label>
+            <nb-form-field style="margin-bottom: 10px">
+                <input fullWidth id="nomeLivro" type="text" nbInput placeholder="Ex. trolzito20" [(ngModel)]="borrow"
+                    #nameField />
+            </nb-form-field>
+        </div>
+        <ng-template #returnItem>
+            <b>
+                Emprestado para: {{isBook? book.borrowedTo: serie.books[0].borrowedTo}}
+            </b>
+        </ng-template>
+
+        <div *ngIf="isBook; else serieTemp">
+            <p>Author: {{ book.author }}</p>
+        </div>
+        <ng-template #serieTemp>
+            <div>
+                <nb-card *ngFor="let bk of serie.books" class="subcard">
+                    <b class="title">
+                        {{ bk.title }}
+                    </b>
+                    <span class="author">
+                        {{ bk.author }}
+                    </span>
+                </nb-card>
+            </div>
+        </ng-template>
+        <div class="footer">
+            <button nbButton (click)="dialogRef.close()" [disabled]="loading" style="margin-right: 15px;">
+                Cancelar
+            </button>
+            <button nbButton status="info" [disabled]="loading" [nbSpinner]="loading" nbSpinnerStatus="primary"
+                (click)="emprestar()">
+                {{isBorrow?'Retornar' :'Emprestar'}}
+            </button>
+        </div>
+    </nb-card-body>
+</nb-card>

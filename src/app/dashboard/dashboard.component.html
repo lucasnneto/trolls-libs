@@ -5,12 +5,7 @@
     </button>
   </div>
   <div class="box-loading" *ngIf="loading; else base">
-    <nb-card
-      class="intern"
-      [nbSpinner]="true"
-      nbSpinnerStatus="primary"
-      nbSpinnerSize="giant"
-    >
+    <nb-card class="intern" [nbSpinner]="true" nbSpinnerStatus="primary" nbSpinnerSize="giant">
     </nb-card>
   </div>
   <ng-template #base>
@@ -18,11 +13,7 @@
     <h4>Meus livros</h4>
 
     <div class="list">
-      <nb-card
-        *ngFor="let serie of series"
-        class="cards"
-        [class.serie-out]="serie.books[0].borrowedTo"
-      >
+      <nb-card *ngFor="let serie of series" class="cards" [class.serie-out]="serie.books[0].borrowedTo">
         <nb-card-body class="content">
           <div class="chips-space">
             <nb-badge class="chips" text="SÉRIE"></nb-badge>
@@ -32,18 +23,26 @@
           </h3>
           <div>
             <div>Dono: {{ serie.books[0].owner.username }}</div>
+            <div *ngIf="serie.books[0].borrowedTo">Emprestado: {{ serie.books[0].borrowedTo }}</div>
           </div>
         </nb-card-body>
         <nb-card-footer class="footer">
-          <button nbButton>
-            <nb-icon icon="edit-2-outline"></nb-icon>
+          <button nbButton (click)="emprestar(serie)"
+            nbTooltip="{{serie.books[0].borrowedTo == null?'Emprestar Série':'Recuperar Série'}}"
+            nbTooltipStatus="primary">
+            <nb-icon [icon]="serie.books[0].borrowedTo == null? 'log-out-outline':'log-in-outline'"></nb-icon>
           </button>
-          <button nbButton (click)="deleteCard(serie)">
-            <nb-icon icon="trash-outline"></nb-icon>
-          </button>
+          <div>
+            <button nbButton (click)="editCard(serie)" style="margin-right: 10px;">
+              <nb-icon icon="edit-2-outline"></nb-icon>
+            </button>
+            <button nbButton (click)="deleteCard(serie)" status="danger">
+              <nb-icon icon="trash-outline"></nb-icon>
+            </button>
+          </div>
         </nb-card-footer>
       </nb-card>
-      <nb-card *ngFor="let book of books" class="cards">
+      <nb-card *ngFor="let book of books" class="cards" [class.serie-out]="book.borrowedTo">
         <nb-card-body class="content">
           <div class="chips-space">
             <nb-badge class="chips" text="LIVRO"></nb-badge>
@@ -53,15 +52,22 @@
           </h3>
           <div>
             <div>Dono: {{ book.owner.username }}</div>
+            <div *ngIf="book.borrowedTo">Emprestado: {{ book.borrowedTo }}</div>
           </div>
         </nb-card-body>
         <nb-card-footer class="footer">
-          <button nbButton>
-            <nb-icon icon="edit-2-outline"></nb-icon>
+          <button nbButton (click)="emprestar(book)"
+            nbTooltip="{{book.borrowedTo == null?'Emprestar Livro':'Recuperar Livro'}}" nbTooltipStatus="primary">
+            <nb-icon [icon]="book.borrowedTo == null?'log-in-outline':  'log-out-outline'"></nb-icon>
           </button>
-          <button nbButton (click)="deleteCard(book)">
-            <nb-icon icon="trash-outline"></nb-icon>
-          </button>
+          <div>
+            <button nbButton (click)="editCard(book)" style="margin-right: 10px;">
+              <nb-icon icon="edit-2-outline"></nb-icon>
+            </button>
+            <button nbButton (click)="deleteCard(book)" status="danger">
+              <nb-icon icon="trash-outline"></nb-icon>
+            </button>
+          </div>
         </nb-card-footer>
       </nb-card>
     </div>
